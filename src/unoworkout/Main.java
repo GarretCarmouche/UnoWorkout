@@ -49,8 +49,10 @@ public class Main {
         }while(!success);
         
         Deck deck = new Deck(numberOfDecks, includeActionCards, shuffleTogether);
+        System.out.println(deck.length());
         while(deck.length() > 0){
             Card c = deck.drawCard();
+            //System.out.println(c);
             System.out.println(c.getCardType() + " " + c.getCardColor());
         }
     }
