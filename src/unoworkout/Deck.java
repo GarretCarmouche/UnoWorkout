@@ -8,6 +8,9 @@ public class Deck {
     private int cardCount = 0;
     private boolean useActionCards;
     
+    /**
+     * Initializes actionCards and numberCards to contain the respective cards from an uno deck
+     */
     private void addCards(){
         
         int count = 0;
@@ -57,33 +60,51 @@ public class Deck {
         }
     }
     
-    private void shuffle(){
+    /**
+     * Shuffles the array of cards given
+     * @param allCards array of cards to shuffle
+     * @return allCards in random order
+     */
+    private Card[] shuffle(Card[] allCards){
+        Card[] cards = new Card[allCards.length];
+        for(int i = 0; i < allCards.length; i++){
+            cards[i] = allCards[i];
+        }
+        
+        for(int i = 0; i < cards.length; i++){
+            int n1 = (int) (Math.random() * cards.length);
+            int n2 = (int) (Math.random() * cards.length);
+            Card temp = cards[n1];
+            cards[n1] = cards[n2];
+            cards[n2] = temp;
+        }
+        
+        return cards;
+    }
+    
+    /**
+     * Overload for {@link #shuffle(Card[])} above. Generates an array before invoking.
+     * @return Shuffled array of cards
+     */
+    private Card[] shuffle(){
         int numberOfCards = numberCards.length + actionCards.length;
-        Card[] allCards = new Card[numberOfCards];
+        Card[] cards = new Card[numberOfCards];
         for(int i = 0; i < numberCards.length; i++){
-            allCards[i] = numberCards[i];
+            cards[i] = numberCards[i];
         }
         
         if(useActionCards){
             for(int i = 0; i < actionCards.length; i++){
-                allCards[numberCards.length + i] = actionCards[i];
+                cards[numberCards.length + i] = actionCards[i];
             }
         }
-        
-        for(int i = 0; i < allCards.length; i++){
-            int n1 = (int) (Math.random() * allCards.length);
-            int n2 = (int) (Math.random() * allCards.length);
-            Card temp = allCards[n1];
-            allCards[n1] = allCards[n2];
-            allCards[n2] = temp;
-        }
-        
-        for(int i = 0; i < allCards.length; i++){
-            shuffledCards[cardCount] = allCards[i];
-            cardCount++;
-        }
+        return shuffle(cards);
     }
     
+    /**
+     * 
+     * @return the next card in the deck to be drawn
+     */
     public Card drawCard(){
         cardCount--;
         Card c = shuffledCards[cardCount];
@@ -91,6 +112,20 @@ public class Deck {
         return c;
     }
     
+    /**
+     * 
+     * @return current number of cards in the deck
+     */
+    public int length(){
+        return cardCount;
+    }
+    
+    /**
+     * Constructor for a new deck. Adds and shuffles cards accordingly.
+     * @param numberOfDecks the number of uno decks (1-3) to be included
+     * @param useActionCards whether or not action cards will be put into the deck
+     * @param shuffleTogether whether the uno decks will be shuffled together, or individually
+     */
     public Deck(int numberOfDecks, boolean useActionCards, boolean shuffleTogether){
         this.useActionCards = useActionCards;
         shuffledCards = new Card[numberOfDecks * 114];
@@ -98,17 +133,26 @@ public class Deck {
             for(int i = 0; i < numberOfDecks; i++){
                 addCards();
             }
-            shuffle();
+            shuffledCards = shuffle();
+            cardCount = shuffledCards.length;
         }
         else{
             for(int i = 0; i < numberOfDecks; i++){
                 addCards();
-                shuffle();
+                Card[] cards = shuffle();
+                for(int x = 0; x < cards.length; x++){
+                    shuffledCards[cardCount] = cards[x];
+                    cardCount++;
+                }
             }
         }
         
     }
-    
+    /**
+     * Overload for {@link #Deck(int, boolean, boolean)}
+     * @param numberOfDecks number of uno decks to be added
+     * @param useActionCards boolean to use action cards or not
+     */
     public Deck(int numberOfDecks, boolean useActionCards){
         this(numberOfDecks, useActionCards, false);
     }

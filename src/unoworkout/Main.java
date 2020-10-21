@@ -42,6 +42,10 @@ public class Main {
         }while(!success);
         
         Deck deck = new Deck(numberOfDecks, includeActionCards, shuffleTogether);
+        while(deck.length() > 0){
+            Card c = deck.drawCard();
+            System.out.println(c.cardType + " " + c.cardColor);
+        }
     }
     
 }
