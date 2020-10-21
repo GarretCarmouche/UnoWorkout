@@ -87,7 +87,11 @@ public class Deck {
      * @return Shuffled array of cards
      */
     private Card[] shuffle(){
-        int numberOfCards = numberCards.length + actionCards.length;
+        int numberOfCards;
+        if(useActionCards)
+            numberOfCards = numberCards.length + actionCards.length;
+        else
+            numberOfCards = numberCards.length;
         Card[] cards = new Card[numberOfCards];
         for(int i = 0; i < numberCards.length; i++){
             cards[i] = numberCards[i];
