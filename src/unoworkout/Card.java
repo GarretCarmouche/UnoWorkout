@@ -1,12 +1,30 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-package unoworkout;
-
-public class Card {
+/**
+ *
+ * @author vreyz
+ */    
+    public class Card{
+          private final String cardType; 
+          private final String cardColor; 
+            
+            
+    // Constructor 
+           public Card(String Type, String Color){
+                cardType = Type;
+                cardColor= Color;
+            }
     
-    String cardType;
-    String cardColor;
-    public Card(String type, String color){
-        cardType = type;
-        cardColor = color;
+           public String getCardType (){
+               return cardType;
+           }
+    
+           public String getCardColor (){
+               return cardColor;
+           }
     }
-}
+    
