@@ -87,7 +87,11 @@ public class Deck {
      * @return Shuffled array of cards
      */
     private Card[] shuffle(){
-        int numberOfCards = numberCards.length + actionCards.length;
+        int numberOfCards;
+        if(useActionCards)
+            numberOfCards = numberCards.length + actionCards.length;
+        else
+            numberOfCards = numberCards.length;
         Card[] cards = new Card[numberOfCards];
         for(int i = 0; i < numberCards.length; i++){
             cards[i] = numberCards[i];
@@ -127,18 +131,41 @@ public class Deck {
      * @param shuffleTogether whether the uno decks will be shuffled together, or individually
      */
     public Deck(int numberOfDecks, boolean useActionCards, boolean shuffleTogether){
+        int numberOfCards;
+        if(useActionCards)
+            numberOfCards = numberCards.length + actionCards.length;
+        else
+            numberOfCards = numberCards.length;
+        
         this.useActionCards = useActionCards;
-        shuffledCards = new Card[numberOfDecks * 114];
+        shuffledCards = new Card[numberOfDecks * numberOfCards];
         if(shuffleTogether){
+            addCards();
             for(int i = 0; i < numberOfDecks; i++){
-                addCards();
+                int count = 0;
+                Card[] cards = new Card[numberOfCards];
+                for(int x = 0; x < numberCards.length; x++){
+                    cards[count] = numberCards[x];
+                    count++;
+                }
+                
+                if(useActionCards){
+                    for(int x = 0; x < actionCards.length; x++){
+                        cards[count] = actionCards[x];
+                        count++;
+                    }
+                }
+                
+                for(int x = 0; x < cards.length; x++){
+                    shuffledCards[cardCount] = cards[x];
+                    cardCount++;
+                }
             }
-            shuffledCards = shuffle();
-            cardCount = shuffledCards.length;
         }
         else{
+            addCards();
             for(int i = 0; i < numberOfDecks; i++){
-                addCards();
+                
                 Card[] cards = shuffle();
                 for(int x = 0; x < cards.length; x++){
                     shuffledCards[cardCount] = cards[x];
