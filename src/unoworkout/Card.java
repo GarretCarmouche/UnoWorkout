@@ -27,5 +27,10 @@ package unoworkout;
            public String getCardColor (){
                return cardColor;
            }
+           
+           public String getCardDescription(){
+                    if (cardColor = "")
+               return "";
+           }
     }
     
