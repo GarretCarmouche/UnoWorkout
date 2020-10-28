@@ -1,5 +1,9 @@
 package unoworkout;
 
+/**
+ * 
+ * @author Garret
+ */
 public class Deck {
     
     private Card[] actionCards = new Card[31];

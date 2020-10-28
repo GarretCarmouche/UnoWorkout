@@ -3,7 +3,7 @@ package unoworkout;
 
 public class Output {
     // Create an array of Card object 
-    static Card[][] hands = new Card[16][7] ;
+    static Card[][] hands = new Card[16*3][7] ;
     static int counter = 0;
     public static void addHand(Card[] hand){
         hands[counter] = hand;
