@@ -160,6 +160,7 @@ public class Deck {
                     }
                 }
                 
+                cards = shuffle(cards);
                 for(int x = 0; x < cards.length; x++){
                     shuffledCards[cardCount] = cards[x];
                     cardCount++;
@@ -169,7 +170,6 @@ public class Deck {
         else{
             addCards();
             for(int i = 0; i < numberOfDecks; i++){
-                
                 Card[] cards = shuffle();
                 for(int x = 0; x < cards.length; x++){
                     shuffledCards[cardCount] = cards[x];

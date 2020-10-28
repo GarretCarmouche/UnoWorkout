@@ -1,13 +1,57 @@
-
-/*
 package unoworkout;
 
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import java.util.*;
 
-public class Main {
+/**
+ *
+ * @author Garret
+ */
 
+public class FXMain extends Application {
+    public static Deck deck;
     
-    public static void main(String args[]) {
+    @Override
+    public void start(Stage primaryStage) {
+        Button btn = new Button();
+        btn.setText("Draw hand");
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                drawHand();
+            }
+        });
+        
+        StackPane root = new StackPane();
+        root.getChildren().add(btn);
+        
+        Scene scene = new Scene(root, 300, 250);
+        
+        primaryStage.setTitle("Uno workout");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    
+    public void drawHand(){
+        Card[] hand = new Card[7];
+        for(int i = 0; i < 7; i++){
+            hand[i] = deck.drawCard();
+            System.out.println(hand[i].getCardType() + " " + hand[i].getCardColor() + " " + hand[i].getCardDescription());
+        }
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        
         int numberOfDecks = 1;
         boolean includeActionCards;
         boolean shuffleTogether;
@@ -48,23 +92,9 @@ public class Main {
                 System.out.println("Invalid input");
         }while(!success);
         
-        Deck deck = new Deck(numberOfDecks, includeActionCards, shuffleTogether);
-        System.out.println(deck.length());
-        Card[] hand = new Card[7];
-        int count = 0;
-        while(deck.length() > 0){
-            Card c = deck.drawCard();
-            //System.out.println(c);
-            System.out.println(c.getCardType() + " " + c.getCardColor() + " " + c.getCardDescription());
-            hand[count] = c;
-            if(count == 6){
-                Output.addHand(hand);
-                hand = new Card[7];
-                count = -1;
-            }
-            count++;
-        }
+        deck = new Deck(numberOfDecks, includeActionCards, shuffleTogether);
+        
+        launch(args);
     }
     
 }
-*/
