@@ -5,9 +5,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import java.util.*;
+import javafx.geometry.Pos;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -16,35 +18,88 @@ import java.util.*;
 
 public class FXMain extends Application {
     public static Deck deck;
+    private static boolean includeActionCards = false;
+    private static boolean shuffleTogether = false;
+    private static int numberOfDecks = 0;
     
     @Override
     public void start(Stage primaryStage) {
+        
+        CheckBox includeActionBox = new CheckBox();
+        includeActionBox.setText("Include action cards");
+        includeActionBox.setAlignment(Pos.CENTER_LEFT);
+        includeActionBox.setLayoutY(50);
+        
+        includeActionBox.setOnAction((ActionEvent event) -> {
+            includeActionCards = includeActionBox.selectedProperty().get(); 
+        });
+        
+        CheckBox shuffleTogetherBox = new CheckBox();
+        shuffleTogetherBox.setText("Shuffle decks together");
+        shuffleTogetherBox.setLayoutY(70);
+        
+        shuffleTogetherBox.setOnAction((ActionEvent event) -> {
+            shuffleTogether = shuffleTogetherBox.selectedProperty().get();
+        });
+        
+        TextField numberOfDecksField = new TextField("Enter number of decks (1-3)");
+        numberOfDecksField.setMinWidth(175);
+        
         Button btn = new Button();
         btn.setText("Draw hand");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        
+        btn.setOnAction((ActionEvent event) -> {
+            String text = numberOfDecksField.textProperty().get();
+            int num = 0;
+            try{
+                num = Integer.parseInt(text);
+            }catch(NumberFormatException ex){
+            }
+            if(num > 0 && num < 4)
+                numberOfDecks = num;
+            else
+                numberOfDecks = 0;
             
-            @Override
-            public void handle(ActionEvent event) {
-                drawHand();
+            boolean createdDeck = drawHand();
+            if(createdDeck){
+                shuffleTogetherBox.setDisable(true);
+                includeActionBox.setDisable(true);
+                numberOfDecksField.setEditable(false);
             }
         });
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
         
-        Scene scene = new Scene(root, 300, 250);
+        GridPane root = new GridPane();
+        root.setMinSize(500,500);
+        root.setMaxSize(2000,2000);
+        
+        root.add(btn,2,6);
+        root.add(includeActionBox,0,2);
+        root.add(shuffleTogetherBox,0,3);
+        root.add(numberOfDecksField,0,4);        
+        
+        Scene scene = new Scene(root, 500, 500);
         
         primaryStage.setTitle("Uno workout");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
     
-    public void drawHand(){
+    public boolean drawHand(){
+        boolean createdDeck = false;
+        if(numberOfDecks == 0){
+            return false;
+        }
+        if(deck == null){
+            deck = new Deck(numberOfDecks, includeActionCards, shuffleTogether);
+            createdDeck = true;
+        }
         Card[] hand = new Card[7];
         for(int i = 0; i < 7; i++){
             hand[i] = deck.drawCard();
             System.out.println(hand[i].getCardType() + " " + hand[i].getCardColor() + " " + hand[i].getCardDescription());
         }
+        return createdDeck;
     }
 
     /**
@@ -52,13 +107,7 @@ public class FXMain extends Application {
      */
     public static void main(String[] args) {
         
-        int numberOfDecks = 1;
-        boolean includeActionCards;
-        boolean shuffleTogether;
-        String t;
-        boolean success;
-        
-        Scanner in = new Scanner(System.in);
+        /*Scanner in = new Scanner(System.in);
         do{
             System.out.print("Input the number of decks to shuffle (1-3): ");
             t = in.next().trim();
@@ -90,9 +139,7 @@ public class FXMain extends Application {
             includeActionCards = t.equals("y");
             if(!success)
                 System.out.println("Invalid input");
-        }while(!success);
-        
-        deck = new Deck(numberOfDecks, includeActionCards, shuffleTogether);
+        }while(!success);*/
         
         launch(args);
     }
