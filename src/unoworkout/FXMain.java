@@ -22,7 +22,7 @@ public class FXMain extends Application {
     private static int numberOfDecks = 0;
     private static final Text[] cardLabels = new Text[7];
     
-    public void updateHand(Text cardsLeft, Card[] hand, Text burpeesLabel, Text situpsLabel, Text squatsLabel, Text pushupsLabel, Text lungesLabel){
+    public static void updateHand(Text cardsLeft, Card[] hand, Text burpeesLabel, Text situpsLabel, Text squatsLabel, Text pushupsLabel, Text lungesLabel){
         cardsLeft.setText("Cards left: "+deck.length());
                 
         int pushups = 0;
