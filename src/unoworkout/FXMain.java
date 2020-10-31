@@ -244,7 +244,7 @@ public class FXMain extends Application {
      * Draws a hand of seven cards from the deck
      * @return Card array of the hand.
      */
-    public Card[] drawHand(){
+    public static Card[] drawHand(){
         if(numberOfDecks == 0){
             return null;
         }
