@@ -1,4 +1,5 @@
 
+/*
 package unoworkout;
 
 import java.util.*;
@@ -54,7 +55,7 @@ public class Main {
         while(deck.length() > 0){
             Card c = deck.drawCard();
             //System.out.println(c);
-            System.out.println(c.getCardType() + " " + c.getCardColor());
+            System.out.println(c.getCardType() + " " + c.getCardColor() + " " + c.getCardDescription());
             hand[count] = c;
             if(count == 6){
                 Output.addHand(hand);
@@ -66,3 +67,4 @@ public class Main {
     }
     
 }
+*/
