@@ -110,6 +110,15 @@ public class Deck {
     }
     
     /**
+     * Adds a card to the top of the deck
+     * @param card The card to be added to the deck
+     */
+    
+    public void addCard(Card card){
+        shuffledCards[cardCount] = card;
+        cardCount++;
+    }
+    /**
      * 
      * @return the next card in the deck to be drawn
      */
