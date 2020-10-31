@@ -16,7 +16,7 @@ import javafx.scene.text.TextAlignment;
  */
 
 public class FXMain extends Application {
-    public static Deck deck;
+    private static Deck deck;
     private static boolean includeActionCards = false;
     private static boolean shuffleTogether = false;
     private static int numberOfDecks = 0;
