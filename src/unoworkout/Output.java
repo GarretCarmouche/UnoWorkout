@@ -38,15 +38,17 @@ public class Output {
       System.out.println("Successfully wrote to the file.");
     } catch (IOException e) {
       System.out.println("An error occurred.");
-    }
+        }
      
     }  
+    //Write initial formatting (open tags (html, body, title, etc.)
+    
 }  
 
        
            
         
-        //Write initial formatting (open tags (html, body, title, etc.)
+       
         
         //Iterate through each hand, add tags for the data (p1, h1, etc.) add a hand output to the file.
         
