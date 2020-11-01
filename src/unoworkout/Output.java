@@ -63,7 +63,6 @@ public class Output {
       System.out.println("An error occurred.");
         }
     
-    //Calculate final statistics
     FileWriter myWriter = new FileWriter("Homework3.html");
     myWriter.write("Total pushups: "+totalPushups);
     myWriter.write("Total situps: "+totalSitups);
@@ -84,18 +83,28 @@ public class Output {
          }
        }
        
-    //Add tags final statistics to the file
+    /*//Add tags final statistics to the file
+    
          try {
       //FileWriter myWriter = new FileWriter("Homework3.html");
       myWriter.write("<h4>");
       myWriter.close();
-      System.out.println("Successfully wrote to the file.\n");
+      System.out.println("Successfully added statistics to the .\n");
     } catch (IOException e) {
       System.out.println("An error occurred.");
         }
     
     //Close statistics tags
-     
+    
+         try {
+      //FileWriter myWriter = new FileWriter("Homework3.html");
+      myWriter.write("</h4>");
+      myWriter.close();
+      System.out.println("Successfully closed the file.\n");
+    } catch (IOException e) {
+      System.out.println("An error occurred.");
+        }
+     */
         
         //Close main file tags (/html, /body, etc.)
        try {
