@@ -25,20 +25,30 @@ public class FXMain extends Application {
     private static boolean finalHandDrawn = false;
     
     private static int totalSquats = 0, totalSitups = 0, totalPushups = 0, totalLunges = 0, totalBurpees = 0;
-    private static int totalSkippedSquats = 0, totalSkippedSitups = 0, totalSkippedPushups = 0, totalSkippedLunges = 0, totalSkippedBurpees = 0;
+    private static int totalSkippedSquats = 0, totalSkippedSitups = 0, totalSkippedPushups = 0, totalSkippedLunges = 0;
     
-    public static void updateHand(Text cardsLeft, Card[] hand, Text burpeesLabel, Text situpsLabel, Text squatsLabel, Text pushupsLabel, Text lungesLabel){
+    /**
+     * Updates the UI for the hand drawn
+     * @param cardsLeft Number of cards left in the deck
+     * @param hand Array of cards in the hand
+     * @param burpeesLabel Text label for the number of burpees in the hand
+     * @param situpsLabel Text label for the number of situps in the hand
+     * @param squatsLabel Text label for the number of squats in the hand
+     * @param pushupsLabel Text label for the number of pushups in the hand
+     * @param loungesLabel Text label for the number of lounges in the hand
+     */
+    public static void updateHand(Text cardsLeft, Card[] hand, Text burpeesLabel, Text situpsLabel, Text squatsLabel, Text pushupsLabel, Text loungesLabel){
         cardsLeft.setText("Cards left: "+deck.length());
                 
         int pushups = 0;
         int situps = 0;
         int squats = 0;
         int burpees = 0;
-        int lunges = 0;
+        int lounges = 0;
         int pushupsMultiplier = 1;
         int situpsMultiplier = 1;
         int squatsMultiplier = 1;
-        int lungesMultiplier = 1;
+        int loungesMultiplier = 1;
         boolean skipPushups = false;
         boolean skipSitups = false;
         boolean skipSquats = false;
@@ -79,14 +89,14 @@ public class FXMain extends Application {
                 case "Green":
                     switch(hand[i].getCardType()){
                         case "+2":
-                            lungesMultiplier += 1;
+                            loungesMultiplier += 1;
                             break;
                         case "Reverse":
                         case "Skip":
                             skipLunges = true;
                             break;
                         default:
-                            lunges += Integer.parseInt(hand[i].getCardType());
+                            lounges += Integer.parseInt(hand[i].getCardType());
                     }
                     break;
                 case "Blue":
@@ -106,7 +116,7 @@ public class FXMain extends Application {
                     switch(hand[i].getCardType()){
                         case "+4":
                             pushupsMultiplier += 3;
-                            lungesMultiplier += 3;
+                            loungesMultiplier += 3;
                             squatsMultiplier += 3;
                             situpsMultiplier += 3;
                         case "Wild":
@@ -123,10 +133,10 @@ public class FXMain extends Application {
             }
             
             if(skipLunges){
-                totalSkippedLunges += (lunges * lungesMultiplier);
-                lunges = 0;
+                totalSkippedLunges += (lounges * loungesMultiplier);
+                lounges = 0;
             }else{
-                lunges *= lungesMultiplier;
+                lounges *= loungesMultiplier;
             }
             
             if(skipSquats){
@@ -146,13 +156,13 @@ public class FXMain extends Application {
             totalSitups += situps;
             totalSquats += squats;
             totalPushups += pushups;
-            totalLunges += lunges;
+            totalLunges += lounges;
             totalBurpees += burpees;
             
             situpsLabel.setText("Situps: "+situps);
             squatsLabel.setText("Squats: "+squats);
             pushupsLabel.setText("Pushups: "+pushups);
-            lungesLabel.setText("Lunges: "+lunges);
+            loungesLabel.setText("Lunges: "+lounges);
             burpeesLabel.setText("Burpees: "+burpees);
     }
     
@@ -168,9 +178,19 @@ public class FXMain extends Application {
         
         Text burpeesLabel = new Text();
         Text squatsLabel = new Text();
-        Text lungesLabel = new Text();
+        Text loungesLabel = new Text();
         Text pushupsLabel = new Text();
         Text situpsLabel = new Text();
+        
+        
+        Text numberOfDecksLabel = new Text();
+        numberOfDecksLabel.setText("Number of decks: ");
+        
+        Text filePathLabel = new Text();
+        filePathLabel.setText("File path: ");
+        filePathLabel.setTextAlignment(TextAlignment.RIGHT);
+        
+        TextField filePathField = new TextField("Output.html");
         
         Text cardsLeft = new Text();
         cardsLeft.setText("Cards left:");
@@ -178,7 +198,6 @@ public class FXMain extends Application {
         CheckBox includeActionBox = new CheckBox();
         includeActionBox.setText("Include action cards");
         includeActionBox.setAlignment(Pos.CENTER_LEFT);
-        includeActionBox.setLayoutY(50);
         
         includeActionBox.setOnAction((ActionEvent event) -> {
             includeActionCards = includeActionBox.selectedProperty().get(); 
@@ -192,8 +211,9 @@ public class FXMain extends Application {
             shuffleTogether = shuffleTogetherBox.selectedProperty().get();
         });
         
-        TextField numberOfDecksField = new TextField("Enter number of decks (1-3)");
-        numberOfDecksField.setMinWidth(175);
+        TextField numberOfDecksField = new TextField("1");
+        numberOfDecksField.setMinWidth(30);
+        numberOfDecksField.setMaxWidth(30);
         
         Button btn = new Button();
         btn.setText("Draw hand");
@@ -210,12 +230,12 @@ public class FXMain extends Application {
             else
                 numberOfDecks = 0;
             
-            Card[] hand = drawHand();
+            Card[] hand = drawHand(filePathField.textProperty().get());
             if(hand != null){
                 shuffleTogetherBox.setDisable(true);
                 includeActionBox.setDisable(true);
                 numberOfDecksField.setEditable(false);
-                updateHand(cardsLeft, hand, burpeesLabel, situpsLabel, squatsLabel, pushupsLabel, lungesLabel);
+                updateHand(cardsLeft, hand, burpeesLabel, situpsLabel, squatsLabel, pushupsLabel, loungesLabel);
             }
         });
         
@@ -228,24 +248,31 @@ public class FXMain extends Application {
         root.add(cardsLeft,3,6);
         root.add(includeActionBox,0,2);
         root.add(shuffleTogetherBox,0,3);
-        root.add(numberOfDecksField,0,4); 
+        root.add(numberOfDecksField,1,4); 
+        root.add(numberOfDecksLabel,0,4);
         root.add(pushupsLabel, 0,6);
         root.add(situpsLabel, 0,7);
         root.add(squatsLabel, 0,8);
-        root.add(lungesLabel, 0,9);
+        root.add(loungesLabel, 0,9);
         root.add(burpeesLabel, 0,10);
+        root.add(filePathField,2,7);
+        root.add(filePathLabel,1,7);
         for(int i = 0; i < cardLabels.length; i++){
             root.add(cardLabels[i],(i%1)+4,(i/1) + 7);
         }
         
-        Scene scene = new Scene(root, 500, 500);
+        Scene scene = new Scene(root, 600, 300);
         
         primaryStage.setTitle("Uno workout");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
     
-    
+    /**
+     * Returns the cards of the matching color back to the deck
+     * @param color Color of cards to be returned to the deck
+     * @param hand Hand of cards to be checked to be returned to the deck
+     */
     public static void reverseCards(String color, Card[] hand){
         for(int i = 0; i < hand.length; i++){
             if(hand[i] == null)
@@ -259,7 +286,7 @@ public class FXMain extends Application {
      * Draws a hand of seven cards from the deck
      * @return Card array of the hand.
      */
-    public static Card[] drawHand(){
+    public static Card[] drawHand(String outputFilePath){
         if(numberOfDecks == 0){
             return null;
         }
@@ -284,7 +311,7 @@ public class FXMain extends Application {
         if(deck.length() <= 0 && !finalHandDrawn){
             finalHandDrawn = true;
             try{
-                Output.constructOutput(totalPushups, totalSitups, totalSquats, totalLunges, totalBurpees, totalSkippedPushups, totalSkippedSitups, totalSkippedSquats, totalSkippedLunges);
+                Output.constructOutput(totalPushups, totalSitups, totalSquats, totalLunges, totalBurpees, totalSkippedPushups, totalSkippedSitups, totalSkippedSquats, totalSkippedLunges, outputFilePath);
             }catch(IOException ex){}
         }
         return hand;
