@@ -1,5 +1,6 @@
 package unoworkout;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.*;
 import javafx.scene.*;
@@ -21,6 +22,10 @@ public class FXMain extends Application {
     private static boolean shuffleTogether = false;
     private static int numberOfDecks = 0;
     private static final Text[] cardLabels = new Text[7];
+    private static boolean finalHandDrawn = false;
+    
+    private static int totalSquats = 0, totalSitups = 0, totalPushups = 0, totalLunges = 0, totalBurpees = 0;
+    private static int totalSkippedSquats = 0, totalSkippedSitups = 0, totalSkippedPushups = 0, totalSkippedLunges = 0, totalSkippedBurpees = 0;
     
     public static void updateHand(Text cardsLeft, Card[] hand, Text burpeesLabel, Text situpsLabel, Text squatsLabel, Text pushupsLabel, Text lungesLabel){
         cardsLeft.setText("Cards left: "+deck.length());
@@ -111,28 +116,38 @@ public class FXMain extends Application {
             }
         }
         if(skipPushups){
+                totalSkippedPushups += (pushups * pushupsMultiplier);
                 pushups = 0;
             }else{
                 pushups *= pushupsMultiplier;
             }
             
             if(skipLunges){
+                totalSkippedLunges += (lunges * lungesMultiplier);
                 lunges = 0;
             }else{
                 lunges *= lungesMultiplier;
             }
             
             if(skipSquats){
+                totalSkippedSquats += (squats * squatsMultiplier);
                 squats = 0;
             }else{
                 squats *= squatsMultiplier;
             }
             
             if(skipSitups){
+                totalSkippedSitups += (situps * situpsMultiplier);
                 situps = 0;
             }else{
                 situps *= situpsMultiplier;
             }
+            
+            totalSitups += situps;
+            totalSquats += squats;
+            totalPushups += pushups;
+            totalLunges += lunges;
+            totalBurpees += burpees;
             
             situpsLabel.setText("Situps: "+situps);
             squatsLabel.setText("Squats: "+squats);
@@ -231,7 +246,7 @@ public class FXMain extends Application {
     }
     
     
-    public void reverseCards(String color, Card[] hand){
+    public static void reverseCards(String color, Card[] hand){
         for(int i = 0; i < hand.length; i++){
             if(hand[i] == null)
                 break;
@@ -264,6 +279,13 @@ public class FXMain extends Application {
                 break;
             if(hand[i].getCardType().equals("Reverse"))
                 reverseCards(hand[i].getCardColor(), hand);
+        }
+        
+        if(deck.length() <= 0 && !finalHandDrawn){
+            finalHandDrawn = true;
+            try{
+                Output.constructOutput(totalPushups, totalSitups, totalSquats, totalLunges, totalBurpees, totalSkippedPushups, totalSkippedSitups, totalSkippedSquats, totalSkippedLunges);
+            }catch(IOException ex){}
         }
         return hand;
     }

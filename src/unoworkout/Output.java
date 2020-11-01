@@ -15,11 +15,11 @@ public class Output {
         counter++;
     }
     
-    public static void constructOutput(int totalPushups, int totalSitups, int totalSquats, int totalLunges, int totalBurpees, int skippedPushups, int skippedSitups, int skippedSquats, int skippedLunges) throws IOException{
+    public static void constructOutput(int totalPushups, int totalSitups, int totalSquats, int totalLunges, int totalBurpees, int skippedPushups, int skippedSitups, int skippedSquats, int skippedLunges, String filePath) throws IOException{
         //Create new output file
         
         try {
-      File myObj = new File("Homework3.html");
+      File myObj = new File(filePath);
       if (myObj.createNewFile()) {
         System.out.println("File created: " + myObj.getName());
       } else {
@@ -32,7 +32,7 @@ public class Output {
      //Create printWriter to the output file
      //Write initial formatting (open tags (html, body, title, etc.)
      try {
-      FileWriter myWriter = new FileWriter("Homework3.html");
+      FileWriter myWriter = new FileWriter("filePath");
       myWriter.write("<html><title>Project 2 </title><body>");
       myWriter.close();
       System.out.println("Successfully wrote to the file.\n");
@@ -44,7 +44,7 @@ public class Output {
      for (int i = 0; i < hands.length; i++){
          Card[] hand = hands[i];
          try {
-      FileWriter myWriter = new FileWriter("Homework3.html");
+      FileWriter myWriter = new FileWriter("filePath");
       myWriter.write("<h3>");
       myWriter.close();
       System.out.println("Successfully added hands to the file.\n");
@@ -55,7 +55,7 @@ public class Output {
      
     //Add close tags for the data (/p1, /h1, etc.)
     try {
-      FileWriter myWriter = new FileWriter("Homework3.html");
+      FileWriter myWriter = new FileWriter("filePath");
       myWriter.write("</h3>");
       myWriter.close();
       System.out.println("Successfully added closing tags to the html file.\n");
@@ -63,7 +63,7 @@ public class Output {
       System.out.println("An error occurred.");
         }
     
-    FileWriter myWriter = new FileWriter("Homework3.html");
+    FileWriter myWriter = new FileWriter("filePath");
     myWriter.write("Total pushups: "+totalPushups);
     myWriter.write("Total situps: "+totalSitups);
     myWriter.write("Total Squats: "+totalSquats);
