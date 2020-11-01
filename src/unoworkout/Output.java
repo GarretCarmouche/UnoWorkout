@@ -15,7 +15,7 @@ public class Output {
         counter++;
     }
     
-    public static void constructOutput(int totalPushups, int totalSitups, int totalSquats, int totalLunges, int totalBurpees, int skippedPushups, int skippedSitups, int skippedSquats, int skippedLunges) throws IOException{
+    public static void constructOutput(int totalPushups, int totalSitups, int totalSquats, int totalLunges, int totalBurpees, int skippedPushups, int skippedSitups, int skippedSquats, int skippedLunges, String outputFilePath) throws IOException{
         //Create new output file
         
         try {
