@@ -10,11 +10,30 @@ public class Output {
     // Create an array of Card object 
     static Card[][] hands = new Card[16*3][7] ;
     static int counter = 0;
+    
+    /**
+     * Adds a hand to the array of hands drawn
+     * @param hand Hand to be added to the array
+     */
     public static void addHand(Card[] hand){
         hands[counter] = hand;
         counter++;
     }
     
+    /**
+     * Creates an HTML file for the output and writes the data for each hand and final statistics
+     * @param totalPushups
+     * @param totalSitups
+     * @param totalSquats
+     * @param totalLunges
+     * @param totalBurpees
+     * @param skippedPushups
+     * @param skippedSitups
+     * @param skippedSquats
+     * @param skippedLunges
+     * @param filePath Path of the file to be written
+     * @throws IOException 
+     */
     public static void constructOutput(int totalPushups, int totalSitups, int totalSquats, int totalLunges, int totalBurpees, int skippedPushups, int skippedSitups, int skippedSquats, int skippedLunges, String filePath) throws IOException{
         //Create new output file
         System.out.println("OUT");
