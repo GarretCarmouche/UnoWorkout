@@ -17,7 +17,7 @@ public class Output {
     
     public static void constructOutput(int totalPushups, int totalSitups, int totalSquats, int totalLunges, int totalBurpees, int skippedPushups, int skippedSitups, int skippedSquats, int skippedLunges, String filePath) throws IOException{
         //Create new output file
-        
+        System.out.println("OUT");
         try {
       File myObj = new File(filePath);
       if (myObj.createNewFile()) {
@@ -27,52 +27,232 @@ public class Output {
       }
     } catch (IOException e) {
       System.out.println("An error occurred.");
-        }
-   
+    }
+        FileWriter myWriter;
      //Create printWriter to the output file
      //Write initial formatting (open tags (html, body, title, etc.)
      try {
-      FileWriter myWriter = new FileWriter("filePath");
+      myWriter = new FileWriter(filePath);
       myWriter.write("<html><title>Project 2 </title><body>");
-      myWriter.close();
+      //myWriter.close();
       System.out.println("Successfully wrote to the file.\n");
     } catch (IOException e) {
       System.out.println("An error occurred.");
+      return;
         }
      //Iterate through each hand, add tags for the data (p1, h1, etc.) add a hand output to the file.
      
-     for (int i = 0; i < hands.length; i++){
+     myWriter.write("<h3>");
+     for(int i = 0; i < hands.length; i++){
+         System.out.println("i:"+i);
+         Card[] hand = hands[i];
+         for(int x = 0; x < hand.length; x++){
+             System.out.println(hand[x]);
+             if(hand[x] == null)
+                 break;
+             for(int c = 0; c < 6; c++){
+                 switch(c){
+                     case 0:
+                         System.out.println(hand[x].getCardColor() + " " +hand[x].getCardColor().equals("Yellow"));
+                             if(hand[x].getCardColor().equals("Yellow"))
+                             {
+                                 for(int t = 0; t < 13; t++){
+                                     switch(t){
+                                         case 0:
+                                         case 1:
+                                         case 2:
+                                         case 3:
+                                         case 4:
+                                         case 5:
+                                         case 6:
+                                         case 7:
+                                         case 8:
+                                         case 9:
+                                             System.out.println(hand[x].getCardType() + " " +""+t + " " +hand[x].getCardType().equals(""+t));
+                                             if(hand[x].getCardType().equals(""+t)){
+                                                 System.out.println(hand[x].getCardColor() + " " +hand[x].getCardType());
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 10:
+                                             if(hand[x].getCardType().equals("Skip")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 11:
+                                             if(hand[x].getCardType().equals("+2")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 12:
+                                             if(hand[x].getCardType().equals("Reverse")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                     }
+                                 }
+                             }
+                             break;
+                     case 1:
+                         if(hand[x].getCardColor().equals("Green")){
+                             for(int t = 0; t < 13; t++){
+                                     switch(t){
+                                         case 0:
+                                         case 1:
+                                         case 2:
+                                         case 3:
+                                         case 4:
+                                         case 5:
+                                         case 6:
+                                         case 7:
+                                         case 8:
+                                         case 9:
+                                             if(hand[x].getCardType().equals(""+t)){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 10:
+                                             if(hand[x].getCardType().equals("Skip")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 11:
+                                             if(hand[x].getCardType().equals("+2")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 12:
+                                             if(hand[x].getCardType().equals("Reverse")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                     }
+                                 }
+                             }
+                     case 2:
+                         if(hand[x].getCardColor().equals("Red")){
+                             for(int t = 0; t < 13; t++){
+                                     switch(t){
+                                         case 0:
+                                         case 1:
+                                         case 2:
+                                         case 3:
+                                         case 4:
+                                         case 5:
+                                         case 6:
+                                         case 7:
+                                         case 8:
+                                         case 9:
+                                             if(hand[x].getCardType().equals(""+t)){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 10:
+                                             if(hand[x].getCardType().equals("Skip")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 11:
+                                             if(hand[x].getCardType().equals("+2")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 12:
+                                             if(hand[x].getCardType().equals("Reverse")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                     }
+                                 }
+                             }
+                     case 3:
+                         if(hand[x].getCardColor().equals("Blue")){
+                             for(int t = 0; t < 13; t++){
+                                     switch(t){
+                                         case 0:
+                                         case 1:
+                                         case 2:
+                                         case 3:
+                                         case 4:
+                                         case 5:
+                                         case 6:
+                                         case 7:
+                                         case 8:
+                                         case 9:
+                                             if(hand[x].getCardType().equals(""+t)){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 10:
+                                             if(hand[x].getCardType().equals("Skip")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 11:
+                                             if(hand[x].getCardType().equals("+2")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                         case 12:
+                                             if(hand[x].getCardType().equals("Reverse")){
+                                                 myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                                             }
+                                             break;
+                                     }
+                                 }
+                             }
+                     case 4:
+                         if(hand[x].getCardType().equals("+4")){
+                             myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                         }
+                         break;
+                     case 5:
+                         if(hand[x].getCardType().equals("Wild")){
+                             myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
+                         }
+                         break;
+                         
+                 }
+             }
+             
+         }
+     }
+     myWriter.write("</h3>");
+     //myWriter.close();
+     /*for (int i = 0; i < hands.length; i++){
          Card[] hand = hands[i];
          try {
-      FileWriter myWriter = new FileWriter("filePath");
+      FileWriter myWriter = new FileWriter(filePath);
       myWriter.write("<h3>");
+      
+      
       myWriter.close();
       System.out.println("Successfully added hands to the file.\n");
     } catch (IOException e) {
       System.out.println("An error occurred.");
         }
-    } 
+    } */
      
     //Add close tags for the data (/p1, /h1, etc.)
-    try {
-      FileWriter myWriter = new FileWriter("filePath");
+    /*try {
+      //FileWriter myWriter = new FileWriter(filePath);
       myWriter.write("</h3>");
       myWriter.close();
       System.out.println("Successfully added closing tags to the html file.\n");
     } catch (IOException e) {
       System.out.println("An error occurred.");
-        }
+        }*/
     
-    FileWriter myWriter = new FileWriter("filePath");
-    myWriter.write("Total pushups: "+totalPushups);
-    myWriter.write("Total situps: "+totalSitups);
-    myWriter.write("Total Squats: "+totalSquats);
-    myWriter.write("Total Lunges: "+totalLunges);
-    myWriter.write("Total Burpees: "+totalBurpees);
-    myWriter.write("Total skippedPushups: "+skippedPushups);
-    myWriter.write("Total skippedSitups: "+skippedSitups);
-    myWriter.write("Total skippedSquats: "+skippedSquats);
-    myWriter.write("Total skippedLunges: "+skippedLunges);
+    //FileWriter myWriter = new FileWriter(filePath);
+    myWriter.write("Total pushups: "+totalPushups + "<br>" );
+    myWriter.write("Total situps: "+totalSitups + "<br>" );
+    myWriter.write("Total Squats: "+totalSquats + "<br>" );
+    myWriter.write("Total Lunges: "+totalLunges + "<br>" );
+    myWriter.write("Total Burpees: "+totalBurpees + "<br>");
+    myWriter.write("Total skippedPushups: "+skippedPushups + "<br>" );
+    myWriter.write("Total skippedSitups: "+skippedSitups + "<br>");
+    myWriter.write("Total skippedSquats: "+skippedSquats+ "<br>" );
+    myWriter.write("Total skippedLunges: "+skippedLunges+ "<br>" );
     
        for (int i = 0; i < hands.length; i++){
          Card[] hand = hands[i];

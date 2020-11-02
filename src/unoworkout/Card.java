@@ -7,7 +7,7 @@ package unoworkout;
 
 /**
  *
- * @author vreyz, Garret
+ * @author Vrey, Garret
  */    
     public class Card{
           private final String cardType; 
