@@ -236,6 +236,7 @@ public class FXMain extends Application {
                 includeActionBox.setDisable(true);
                 numberOfDecksField.setEditable(false);
                 updateHand(cardsLeft, hand, burpeesLabel, situpsLabel, squatsLabel, pushupsLabel, loungesLabel);
+                Output.addHand(hand);
             }
         });
         

@@ -42,18 +42,22 @@ public class Output {
         }
      //Iterate through each hand, add tags for the data (p1, h1, etc.) add a hand output to the file.
      
-     myWriter.write("<h3>");
      for(int i = 0; i < hands.length; i++){
-         System.out.println("i:"+i);
          Card[] hand = hands[i];
+         if(hand[0] == null)
+            break;
+         myWriter.write("<h3>");
+         myWriter.write("Hand "+i);
+         myWriter.write("</h3>");
+         myWriter.write("<p>");
          for(int x = 0; x < hand.length; x++){
-             System.out.println(hand[x]);
-             if(hand[x] == null)
+             myWriter.write("<br>");
+             if(hand[x] == null){
                  break;
+             }
              for(int c = 0; c < 6; c++){
                  switch(c){
                      case 0:
-                         System.out.println(hand[x].getCardColor() + " " +hand[x].getCardColor().equals("Yellow"));
                              if(hand[x].getCardColor().equals("Yellow"))
                              {
                                  for(int t = 0; t < 13; t++){
@@ -68,9 +72,7 @@ public class Output {
                                          case 7:
                                          case 8:
                                          case 9:
-                                             System.out.println(hand[x].getCardType() + " " +""+t + " " +hand[x].getCardType().equals(""+t));
                                              if(hand[x].getCardType().equals(""+t)){
-                                                 System.out.println(hand[x].getCardColor() + " " +hand[x].getCardType());
                                                  myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
                                              }
                                              break;
@@ -129,6 +131,7 @@ public class Output {
                                      }
                                  }
                              }
+                         break;
                      case 2:
                          if(hand[x].getCardColor().equals("Red")){
                              for(int t = 0; t < 13; t++){
@@ -165,6 +168,7 @@ public class Output {
                                      }
                                  }
                              }
+                         break;
                      case 3:
                          if(hand[x].getCardColor().equals("Blue")){
                              for(int t = 0; t < 13; t++){
@@ -201,6 +205,7 @@ public class Output {
                                      }
                                  }
                              }
+                         break;
                      case 4:
                          if(hand[x].getCardType().equals("+4")){
                              myWriter.write(hand[x].getCardColor() + " " +hand[x].getCardType() + ": "+hand[x].getCardDescription());
@@ -214,10 +219,9 @@ public class Output {
                          
                  }
              }
-             
          }
+         myWriter.write("</p>");
      }
-     myWriter.write("</h3>");
      //myWriter.close();
      /*for (int i = 0; i < hands.length; i++){
          Card[] hand = hands[i];
