@@ -8,7 +8,7 @@ import java.io.FileWriter;
 
 public class Output {
     // Create an array of Card object 
-    static Card[][] hands = new Card[16*3][7] ;
+    static Card[][] hands = new Card[60][7] ;
     static int counter = 0;
     
     /**

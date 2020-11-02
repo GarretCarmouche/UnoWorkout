@@ -184,7 +184,7 @@ public class FXMain extends Application {
         
         
         Text numberOfDecksLabel = new Text();
-        numberOfDecksLabel.setText("Number of decks: ");
+        numberOfDecksLabel.setText("Number of decks (1-3): ");
         
         Text filePathLabel = new Text();
         filePathLabel.setText("File path: ");
